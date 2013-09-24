@@ -29,32 +29,27 @@
 			<div class="panel-body">
 				<form class="form-signin" id="frmLogin" method="get" action="">
 					<h2 class="form-signin-heading">Por favor inicie sesion</h2>
-					<div class="alert alert-danger">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-hidden="true">&times;</button>
-						Complete todos los campos
-					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="icon-user"></i></span>
 							<input type="text" class="form-control" placeholder="Usuario"
-								id="txtUser" required>
+								id="txtUser" name="txtUser" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="icon-key"></i></span> <input
 								type="text" class="form-control" placeholder="Passoword"
-								id="txtPass" required>
+								id="txtPass" name="txtPass" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col-md-6">
-								<input id="user_remember_me"
+								<input id="chckbxRecuerdame"
 									style="float: left; margin-right: 10px;" type="checkbox"
-									name="user[remember_me]" value="1" /> <label
-									class="string optional" for="user_remember_me">
+									name="chckbxRecuerdame" value="1" /> <label
+									class="string optional" for="chckbxRecuerdame">
 									Recuerdame</label>
 							</div>
 							<div class="col-md-6">
@@ -118,7 +113,6 @@
 	<script type="text/javascript">
 
 	requirejs([ 'jquery', "bootstrap", "validate" ], function($) {
-		$(".alert").alert('close');
 		$("#frmLogin").validate({
 			rules : {
 				txtUser : {
@@ -126,15 +120,22 @@
 					required : true
 				},
 				txtPass : {
-					required : true,
-					email : true
+					required : true
+				}
+			},
+			messages : {
+				txtUser: {
+					required : "Ingrese su usuario." 
+				},
+				txtPass: {
+					required : "Ingrese su password."
 				}
 			},
 			highlight: function(element) {
-		        $(element).closest('.form-group').addClass('has-error');
+		        $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
 		    },
 		    unhighlight: function(element) {
-		        $(element).closest('.form-group').removeClass('has-error');
+		        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 		    },
 		    errorElement: 'span',
 		    errorClass: 'help-block',
@@ -146,10 +147,8 @@
 		        }
 		    },
 		    success: function(element) {
-		        element
-		        .text('OK').addClass('valid')
-		        .closest('.form-group').removeClass('has-error').addClass('has-success');
-		      }
+		        element.closest('.form-group').removeClass('has-error').addClass('has-success');
+		    }
 		});
 	});
 	</script>
